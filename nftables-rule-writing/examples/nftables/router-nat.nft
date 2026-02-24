@@ -1,0 +1,50 @@
+#!/usr/sbin/nft -f
+# Example nftables config for a basic IPv4 NAT router.
+# Edit interface names and management access rules before use.
+
+flush ruleset
+
+table ip filter {
+    chain input {
+        type filter hook input priority 0; policy drop;
+
+        iif "lo" accept comment "loopback"
+        ct state established,related accept comment "established/related"
+        ct state invalid drop comment "invalid"
+
+        # Management access (example)
+        iifname "lan0" tcp dport 22 accept comment "SSH from LAN"
+
+        # ICMP for troubleshooting
+        icmp type echo-request accept comment "IPv4 ping"
+
+        log prefix "router-input-drop: " limit rate 5/minute level info
+    }
+
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+
+        ct state established,related accept comment "return traffic"
+        iifname "lan0" oifname "wan0" accept comment "LAN to WAN"
+
+        log prefix "router-fwd-drop: " limit rate 5/minute level info
+    }
+
+    chain output {
+        type filter hook output priority 0; policy accept;
+    }
+}
+
+table ip nat {
+    chain prerouting {
+        type nat hook prerouting priority -100; policy accept;
+        # Example port forward:
+        # tcp dport 443 dnat to 192.0.2.10:443
+    }
+
+    chain postrouting {
+        type nat hook postrouting priority 100; policy accept;
+        oifname "wan0" masquerade comment "IPv4 NAT egress"
+    }
+}
+

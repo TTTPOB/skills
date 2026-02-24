@@ -1,0 +1,49 @@
+#!/usr/sbin/nft -f
+# Example dual-stack host firewall for table inet.
+# Demonstrates explicit IPv4/IPv6 matches and readable rule separation.
+
+flush ruleset
+
+table inet filter {
+    set admin_v4 {
+        type ipv4_addr
+        flags interval
+        elements = { 203.0.113.0/24 }
+    }
+
+    set admin_v6 {
+        type ipv6_addr
+        flags interval
+        elements = { 2001:db8:100::/64 }
+    }
+
+    chain input {
+        type filter hook input priority 0; policy drop;
+
+        iif "lo" accept
+        ct state established,related accept
+        ct state invalid drop
+
+        # Keep IPv4 and IPv6 rules separate for clarity and fewer protocol-context mistakes.
+        ip saddr @admin_v4 tcp dport 22 ct state new accept comment "SSH admin IPv4"
+        ip6 saddr @admin_v6 tcp dport 22 ct state new accept comment "SSH admin IPv6"
+
+        icmp type echo-request accept
+        icmpv6 type echo-request accept
+        icmpv6 type nd-neighbor-solicit accept
+        icmpv6 type nd-neighbor-advert accept
+
+        tcp dport { 80, 443 } accept
+
+        log prefix "dual-host-drop: " limit rate 5/minute level info
+    }
+
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+    }
+
+    chain output {
+        type filter hook output priority 0; policy accept;
+    }
+}
+
