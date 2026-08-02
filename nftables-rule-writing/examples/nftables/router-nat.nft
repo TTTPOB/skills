@@ -18,7 +18,7 @@ table ip filter {
         # ICMP for troubleshooting
         icmp type echo-request accept comment "IPv4 ping"
 
-        log prefix "router-input-drop: " limit rate 5/minute level info
+        limit rate 5/minute log prefix "router-input-drop: " level info
     }
 
     chain forward {
@@ -27,7 +27,7 @@ table ip filter {
         ct state established,related accept comment "return traffic"
         iifname "lan0" oifname "wan0" accept comment "LAN to WAN"
 
-        log prefix "router-fwd-drop: " limit rate 5/minute level info
+        limit rate 5/minute log prefix "router-fwd-drop: " level info
     }
 
     chain output {
