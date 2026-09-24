@@ -1,28 +1,28 @@
-# PowerPoint MCP skill：跨项目版
+# PowerPoint MCP skill: cross-project edition
 
-用同一套做法制作和修改不同项目的 PPT：内容准确、原生可编辑、图示有解释力、文字与形状不冗余，颜色编码全篇一致。
+Build and revise decks for different projects with one approach: accurate content, native and editable, diagrams that explain, no redundant text or shapes, and consistent color coding throughout.
 
-保留原 skill 名称 `ppt-mcp-academic`，便于替换已有安装；这个名称不限制学科、项目、内容类型或模板。入口描述已覆盖科研、技术、教学与项目报告。
+The original skill name `ppt-mcp-academic` is kept so it can replace an existing installation; the name does not restrict discipline, project, content type, or template. The entry description already covers research, technical, teaching, and project reporting.
 
-## 使用边界
+## Scope
 
-| 保留为通用做法 | 每次由当前任务确定 |
+| Kept as general practice | Determined by the current task |
 |---|---|
-| 文字与形状去冗余，普通文字内嵌 | 项目名、实体名、页号、具体内容 |
-| 同一含义在全稿采用一致的颜色编码 | 什么对象用什么颜色，源图是否独立编码 |
-| 原生表格和公式，真实分组与正确对齐 | 是否需要表格、公式、流程或模型 |
-| 字体实际生效，结构与视觉都检查 | 本次字体、模板、语言、布局和字号 |
-| 安全重试、远端路径核对、减少抢焦点 | 文件位置、运行环境、传输方式和操作范围 |
+| No redundant text or shapes; body text embedded | Project names, entity names, page numbers, concrete content |
+| One meaning keeps one color across the whole deck | Which object uses which color; whether a source figure has its own encoding |
+| Native tables and equations, real grouping, correct alignment | Whether tables, equations, flowcharts, or models are needed |
+| Fonts actually take effect; check both structure and visuals | This task's font, template, language, layout, and sizes |
+| Safe retries, verifying remote paths, minimizing focus stealing | File location, runtime environment, transfer method, operation scope |
 
-思源黑体与平实风格是可覆盖的个人默认，不是每个项目必须使用的硬约束。当前任务的明确要求和已确认模板优先。
+Source Han Sans SC and a plain style are overridable personal defaults, not hard constraints for every project. The current task's explicit requirements and a confirmed template come first.
 
-包内不附带任何单一项目的参考截图，也没有固定模型、数据、实验体系或实体配色。
+The package ships no reference screenshots from any single project, and no fixed model, data, experimental setup, or entity palette.
 
-## 放置或更新
+## Install or update
 
-将完整 `ppt-mcp-academic/` 文件夹放进 Agent 已配置的 skills 目录。具体目录与刷新方式以该 Agent 配置为准。
+Put the complete `ppt-mcp-academic/` folder into the skills directory your Agent is configured to use. The exact directory and refresh method follow that Agent's configuration.
 
-更新旧版时，先备份你自己的修改，再用新版完整替换同名目录；不要只覆盖 `SKILL.md`，也不要把旧版参考图和旧参考文件留在新目录里。本 ZIP 的顶层目录仍叫 `ppt-mcp-academic/`，不会安装一个不同名称的重复 skill。
+When updating an older version, back up your own modifications first, then replace the same-named directory with the new version in full; do not overwrite only `SKILL.md`, and do not leave the old reference images or old reference files behind in the new directory. The top-level directory of this package is still `ppt-mcp-academic/`, so it will not install a duplicate skill under a different name.
 
 ```text
 ppt-mcp-academic/
@@ -33,12 +33,12 @@ ppt-mcp-academic/
     └── mcp-recipes.md
 ```
 
-## 文件作用
+## Files
 
-| 文件 | 用途 |
+| File | Purpose |
 |---|---|
-| [SKILL.md](SKILL.md) | 入口、规则优先级、工作流程及交付检查 |
-| [设计与验收](references/design-and-review.md) | 内容组织、颜色映射、去冗余、分组、对齐、版面检查与返工对照 |
-| [MCP 操作配方](references/mcp-recipes.md) | 按需读取的接口经验与参数化示例 |
+| [SKILL.md](SKILL.md) | Entry point, rule priority, working order, and delivery checks |
+| [Design and Review](references/design-and-review.md) | Content organization, color mapping, trimming redundancy, grouping, alignment, layout checks, and rework mapping |
+| [MCP Recipes](references/mcp-recipes.md) | Interface notes and parameterized examples, read on demand |
 
-无需每次读取整个包。调用时说明使用这个 skill，并提供本次材料或目标文稿。
+There is no need to read the whole package every time. When invoking the skill, say that you are using it and provide this task's material or target deck.

@@ -1,199 +1,197 @@
-# 设计与验收
+# Design and Review
 
-适用于不同项目、内容类型和模板。以下是做法，不是固定版式；先读取本次任务的受众、语言、材料、样式与颜色映射。
+Applies across projects, content types, and templates. What follows is practice, not a fixed layout; read this task's audience, language, material, style, and color mapping first.
 
-末节「验收与返工对照」把常见返工意见整理成可逐条核对的清单。
+The final section, "Acceptance and Rework Mapping," turns common rework comments into a checklist you can verify item by item.
 
-## A. 先确定要讲什么
+## A. Decide what to say first
 
-根据受众已有知识，简要介绍后文反复使用的概念、术语或指标。不默认听众记得上一次项目的定义，也不在所有 PPT 开头机械加入实验读数或模型回顾。
+Introduce the concepts, terms, or metrics that later sections reuse, matched to what the audience already knows. Do not assume listeners remember a definition from a previous project, and do not mechanically open every deck with experiment readings or a model recap.
 
-每页先确定这些内容，再创建对象：
+For each slide, settle these before creating objects:
 
-| 项目 | 要回答的问题 |
+| Item | Question to answer |
 |---|---|
-| 本页要点 | 听众离开这一页应记住什么？ |
-| 证据或材料 | 哪张已有图、哪个表格、哪条公式、哪个例子或来源支持它？ |
-| 表达方式 | 用文字、表格、数据图、流程、结构图，还是对照最容易理解？ |
-| 必要限制 | 不说明就会误读的单位、范围、条件或证据边界是什么？ |
-| 备注 | 哪些细节留给讲者，而不是挤在页面上？ |
+| Slide point | What should the audience remember after leaving this slide? |
+| Evidence or material | Which existing figure, table, equation, example, or source supports it? |
+| Form of expression | Text, table, data figure, process, structure diagram, or comparison — which is easiest to understand? |
+| Necessary limits | Which units, ranges, conditions, or evidence boundaries would be misread if left unsaid? |
+| Speaker notes | Which details belong to the speaker rather than crowding the slide? |
 
-标题已经完整表达结论时，不例行添加同义“核心结论”条。标题、副标题和说明同时存在，应各有作用。
+When the title already states the conclusion in full, do not routinely add a synonymous "key takeaway" bar. When a title, subtitle, and caption all exist, each should do its own job.
 
-核对当前内容的证据与适用范围。涉及数据时核对单位、分母、样本量、时间或分组口径；涉及流程或模型时核对箭头、阶段和输入输出。不要把相关性说成因果，也不要把示意值、外部结果和实测结果混为一谈。影响主结论的限制放在页上，较长细节放备注。
+Check the evidence and the applicable scope of the current content. For data, verify units, denominators, sample sizes, time windows, or grouping definitions; for processes and models, verify the arrows, stages, and inputs and outputs. Do not present correlation as causation, and do not conflate illustrative values, external results, and measured results. Put limits that affect the main conclusion on the slide and longer details in the notes.
 
-## B. 示意图展示关系，不堆装饰
+## B. Diagrams show relationships, not decoration
 
-| 要表达的内容 | 可用的视觉语言 | 避免 |
+| What you need to express | Visual language you can use | Avoid |
 |---|---|---|
-| 阶段或流程 | 有明确含义的节点与箭头 | 把一段话拆成几排无关系的框 |
-| 系统组成与层级 | 包含关系、分区和接口 | 所有对象都用一样的边框，让关系无法区分 |
-| 输入、处理、输出 | 输入图标、内嵌文字的处理模块、结果 | 只画复杂图标，不写它代表什么 |
-| 分支、合并与依赖 | 分叉、汇合标记或必要的运算符 | 用同一种未解释箭头表达所有关系 |
-| 对比、类别或状态 | 对齐布局、颜色编码、标签或线型 | 只靠颜色让听众猜 |
-| 算法或模型（仅适用时） | 表征、分支、参数共享等必要结构 | 为了像模型图而添加未经核实的结构或维度 |
-| 学习流程（仅适用时） | 区分训练监督与实际使用路径 | 让训练信息看起来是实际使用时必需的输入 |
+| Stages or process | Nodes and arrows with clear meaning | Splitting a paragraph into rows of unrelated boxes |
+| System composition and hierarchy | Containment, partitioning, interfaces | Giving every object the same border so relationships cannot be told apart |
+| Input, processing, output | Input icons, processing modules with embedded text, results | Drawing only complex icons without saying what they represent |
+| Branching, merging, dependency | Forks, merge markers, or necessary operators | Using the same unexplained arrow for every relationship |
+| Comparison, category, or state | Aligned layout, color coding, labels, or line styles | Making the audience guess from color alone |
+| Algorithm or model (only when applicable) | Representation, branches, parameter sharing, and other necessary structure | Adding unverified structure or dimensions just to look like a model diagram |
+| Learning pipeline (only when applicable) | Distinguish the training supervision path from the actual inference path | Making training information look like a required input at inference time |
 
-不要为简洁删掉有解释价值的示意图；也不要为“图要丰富”给每个词套框。
+Do not delete a diagram that carries explanatory value for the sake of brevity; do not wrap every word in a box for the sake of "a rich figure" either.
 
-### 复用视觉语言，不复制内容逻辑
+### Reuse the visual language, not the content logic
 
-用户认可一种画法时，可复用它的模块、箭头、标签和留白方式。换页或换项目后，重新核对对象、输入输出、关系、条件和数据来源；样式相同不代表逻辑相同。
+When the user approves a drawing approach, you can reuse its modules, arrows, labels, and use of whitespace. After changing slides or projects, re-verify the objects, inputs and outputs, relationships, conditions, and data sources; the same style does not mean the same logic.
 
-不强制复用旧模型、实体数量、符号、预测目标、流程阶段或页面密度。
+Do not force reuse of an old model, entity count, symbols, prediction target, process stages, or page density.
 
-## C. 颜色编码：先定义含义，再跨页核对
+## C. Color coding: define the meaning first, then verify across slides
 
-### 建立本次 PPT 的映射
+### Build this deck's mapping
 
-在任务记录中维护一份简短映射即可，不必增加一张配置幻灯片：
+Keep a short mapping in the task notes; a configuration slide is not required:
 
-| 字段 | 需要明确什么 |
+| Field | What to pin down |
 |---|---|
-| 编码对象 | 颜色代表实体、角色、类别、状态，还是数值？ |
-| 颜色来源 | 本次明确指定、当前模板，还是已确认的源图约定？ |
-| 适用范围 | 哪些页面、图形、文字、图例或数据图应使用它？ |
-| 辅助标识 | 名称、图例、线型或符号如何帮助区分？ |
-| 独立编码 | 哪些外部图使用另一套有明确含义的编码？ |
+| What is encoded | Does color represent an entity, a role, a category, a state, or a value? |
+| Color source | Explicitly specified for this task, from the current template, or from a confirmed source-figure convention? |
+| Scope | Which slides, shapes, text, legends, or data figures should use it? |
+| Supporting cues | How do names, legends, line styles, or symbols help distinguish categories? |
+| Independent encodings | Which external figures use a different scheme with its own clear meaning? |
 
-只有在颜色帮助理解时才上色；不要求所有文字都染色，也不为装饰另造一套语义。
+Apply color only when it helps understanding; do not color all text, and do not invent a second semantic scheme for decoration.
 
-### 一致性检查
+### Consistency checks
 
-同一含义在全稿保持同色；类别顺序改变、模板复制或换一页，不应改变其颜色。在同一编码体系里，避免同一颜色同时承担相互冲突的含义。
+The same meaning keeps the same color across the deck; reordering categories, copying a template, or moving to another slide should not change a color. Within one coding scheme, avoid one color carrying mutually conflicting meanings.
 
-图形填充、相应连线、文字中的角色提示、图例及可编辑图表应对得上。需要多种编码维度时，明确区分其作用范围，必要时让一维用颜色、另一维用线型或标签；不要混成一个模糊图例。
+Shape fills, their connectors, role cues in text, legends, and editable charts should line up. When several encoding dimensions are needed, define their scopes clearly — for example, use color for one dimension and line style or labels for another; do not merge them into one vague legend.
 
-连续数值的渐变配色还要核对方向和数值含义。要直接比较的多张图，尽可能保持色标可比；范围不同则明确标注，不能把相同颜色暗示为相同数值。
+For continuous-value gradients, also check the direction and what the values mean. For several figures meant to be compared directly, keep the color scale comparable where possible; label differing ranges clearly, and do not imply that the same color means the same value.
 
-### 已有数据图与新配色冲突
+### An existing data figure conflicts with the new palette
 
-先读原图图例，不能只凭颜色猜含义。若原图与本稿编码的是同一对象，且能安全修改源图，应统一映射后重新检查。不能可靠修改时，保留原图并明确解释，不把外围标签染成相反含义，也不靠色块遮盖图例。
+Read the original legend first; do not guess meaning from color alone. If the original figure and this deck encode the same object and the source figure can be safely modified, unify the mapping and re-check. When it cannot be reliably modified, keep the original figure and explain it clearly; do not recolor peripheral labels to the opposite meaning, and do not cover the legend with a color block.
 
-若原图本来编码另一维度，保留其独立含义并标清边界；这不等于给同一对象任意换色。交接时说明未解决的冲突，不把“局部改色”报告为“全稿已统一”。
+If the original figure already encodes another dimension, keep its independent meaning and mark the boundary clearly; this is not a license to recolor the same object arbitrarily. At handoff, state any unresolved conflict, and do not report a "partial recolor" as "the whole deck is unified."
 
-## D. 冗余审查：内容层
+## D. Redundancy review: content layer
 
-| 常见问题 | 改法 |
+| Common problem | Fix |
 |---|---|
-| 标题、结论条、框内和页脚重复同一个结论 | 标题负责要点，其余位置提供证据、关系或必要限制 |
-| 流程已画完整，旁边又逐步抄一遍 | 删除逐步复述，只留图中不便表达的解释 |
-| 符号旁已有定义，页底又完整重抄一套 | 优先保留就近解释，集中图例只补共用或缺失定义 |
-| 同一数字出现在图里、大卡片和总结框中 | 留在最便于比较或引用的位置，其他重复删掉 |
-| 中英文成对出现，但另一种语言不提供新信息 | 跟随本稿语言，必要术语首次双语介绍即可 |
+| Title, takeaway bar, box text, and footer repeat the same conclusion | The title carries the point; other places provide evidence, relationships, or necessary limits |
+| The process is fully drawn but transcribed step by step beside it | Delete the step-by-step repetition and keep only what the diagram cannot express |
+| A symbol is defined next to it and a full copy is repeated at the bottom | Prefer the nearby definition; a centralized legend covers only shared or missing definitions |
+| The same number appears in the figure, a large card, and a summary box | Keep it where comparison or reference is easiest and delete the other copies |
+| Chinese and English appear in pairs but the second language adds no information | Follow the deck's language; introduce a necessary term bilingually once |
 
-**不把必要提醒当冗余。** 跨页重新引入的概念、单位、条件、样本量和重要限制可能必须保留。判断依据是理解成本，不是机械限制字数或重复次数。
+**Do not treat a necessary reminder as redundancy.** Concepts reintroduced across slides, units, conditions, sample sizes, and important limits may have to stay. Judge by comprehension cost, not by a mechanical word or repetition limit.
 
-## E. 冗余审查：对象层
+## E. Redundancy review: object layer
 
-| 不推荐 | 推荐 | 合理例外或边界 |
+| Not recommended | Recommended | Reasonable exceptions or boundaries |
 |---|---|---|
-| 底框 + 普通文字 textbox + 重复边框 | 一个原生形状，文字直接在其中 | 确需独立定位的内容 |
-| textbox 和横线拼表格 | 原生 table | 真正的非表格空间关系 |
-| 新色块盖旧错误 | 更新或删除原对象 | 不把遮盖当常规修复手段 |
-| 每个标签套卡片，卡片再套卡片 | 用对齐和留白表达结构 | 大框确实表示子系统或阶段 |
-| 报错后重跑整段，图元重叠 | 读当前状态，再更新或补齐 | 经确认替换一个明确模块 |
-| 为减少对象而截图整页 | 保留原生文字、公式、表格和分组 | 原本就是照片、数据图或外部图片 |
+| Base rectangle + ordinary text textbox + duplicate border | One native shape with the text inside it | Content that genuinely needs independent positioning |
+| A table faked from textboxes and horizontal lines | A native table | Genuinely non-tabular spatial relationships |
+| A new color block covering an old mistake | Update or delete the original object | Do not treat covering as a routine fix |
+| Every label in a card, cards inside cards | Express structure with alignment and whitespace | A large frame genuinely denoting a subsystem or stage |
+| Re-running the whole batch after an error, leaving overlapping elements | Read the current state, then update or fill in | A confirmed replacement of one well-defined module |
+| Screenshotting a whole slide to reduce object count | Keep native text, equations, tables, and grouping | Content that was already a photo, data figure, or external image |
 
-独立原生公式不算多余层。需要一起移动时，将公式、必要底框和解释组成模块；不要为了少一个对象退回裸露的下划线文本。
+A standalone native equation is not an extra layer. When items must move together, group the equation, any necessary base frame, and the caption; do not fall back to raw underscore text just to save an object.
 
-修复已有冗余模块：读取旧文字、样式与对象身份 → 把普通文字写入目标形状 → 设置字号、边距与对齐 → 确认完整 → 删除多余 textbox 或边框 → 更新分组 → 复查。
+To fix an existing redundant module: read the old text, style, and object identity → write the body text into the target shape → set size, margins, and alignment → confirm it is complete → delete the extra textbox or border → update the grouping → re-check.
 
-不批量删除所有空形状：它们可能是底框、连线或公式容器。以实际用途和重复关系判断。
+Do not delete every empty shape in bulk: it may be a base frame, a connector, or an equation container. Judge by actual purpose and by repetition relationships.
 
-## F. 分组、对齐与可编辑性
+## F. Grouping, alignment, and editability
 
-### 按用户会怎样移动来分组
+### Group by how the user will move things
 
-先组合图标内部节点与线段；再把必须一起移动的说明组成模块。需要整体移动流程时可再套一层组，但不把标题、页码和整页内容无差别塞进一个组。
+Group the nodes and line segments inside an icon first; then group the captions that must move together into a module. When a whole process must move, you may wrap another group around it, but do not indiscriminately stuff titles, page numbers, and whole-slide content into one group.
 
-特殊对象能否参与组合，以当前 PowerPoint 实际支持为准；不为分组转图片，也不反复强试已失败的操作。
+Whether a special object can take part in a group depends on what the current PowerPoint actually supports; do not convert figures to images for grouping, and do not retry a failed operation over and over.
 
-### 需要居中的说明有两个检查
+### Centering a caption needs two checks
 
-| 检查 | 具体含义 |
+| Check | What it means |
 |---|---|
-| 框内居中 | 段落对齐为 center，同时核对内边距、缩进和换行 |
-| 框相对主体居中 | 说明框中心与所属主体的水平中心一致 |
+| Centered inside the box | Paragraph alignment is center; also verify the internal margins, indentation, and line breaks |
+| Box centered against the body | The caption box's center matches the horizontal center of the body it belongs to |
 
-以主体的视觉边界为基准，不把远处连线、其他说明或已经偏移的标签算进中心。先确定主体边界、放标签、再分组，随后重读组内信息或看预览。
+Use the body's visual boundary as the reference and do not count a distant connector, another caption, or an already offset label toward the center. Determine the body boundary, place the label, then group, and afterwards re-read the group's contents or look at a preview.
 
 ```text
 body_center_x = body_left + body_width / 2
 label_left = body_center_x - label_width / 2
 ```
 
-居中需要两个条件同时满足：段落居中，且框心对准主体中心。
+Centering requires two conditions at once: the paragraph is centered, and the box's center matches the body's center.
 
-## G. 字体、字号与空间
+## G. Fonts, sizes, and space
 
-本次指定字体或已确认模板优先；没有另行要求时，普通文字优先思源黑体，数学对象保留适用数学字体。字体设置覆盖中英文、已有形状、分组子项和表格单元格。
+A font specified for this task or an already-confirmed template wins; when nothing else is required, prefer Source Han Sans SC for body text and keep a suitable math font for math objects. Font settings must cover Chinese and English, existing shapes, group members, and table cells.
 
-沿用可读字号层级，根据页面尺寸、展示设备、受众距离和预览调整。默认避免仅为装饰而把数字放得特别大；强调服务于理解，不服务于填满页面。
+Keep a readable size hierarchy and adjust it to the slide size, the display device, the viewing distance, and the preview. By default, avoid making numbers especially large purely for decoration; emphasis serves understanding, not filling the slide.
 
-放不下时先删冗余、缩短表达、调整合理区域或拆页，不把整页文字缩成难读小字。
+When it does not fit, delete redundancy, shorten the wording, adjust the area, or split the slide first; do not shrink a whole slide's text into unreadable small type.
 
-图片里已有的文字不会随 PPT 字体设置改变。需要统一时应修改源图；未修改就不能声称图片字体已经统一。不要用替换全文字体的方式破坏数学对象。
+Text already inside an image does not change with the deck's font settings. To unify it, modify the source image; until then you cannot claim the image's fonts are unified. Do not break math objects by replacing the deck's fonts wholesale.
 
-## H. 图片与重叠
+## H. Images and overlap
 
-先确定图片可用区域，再按原始比例缩放。插入、移动或改尺寸后，重新核对边界与比例。
+Determine the available image area first, then scale by the original aspect ratio. After inserting, moving, or resizing, re-verify the boundaries and the ratio.
 
-重点检查图例和坐标轴、标题换行、下方图注、公式专业排版后的尺寸，以及页边留白。两对象相交只代表需要检查：文字在容器内、公式在背景框上是有意包含；无关内容互相遮挡才是错误。
+Focus on legends and axes, title line breaks, captions below, the dimensions of professionally typeset equations, and slide margins. Two objects intersecting only means you should check: text inside a container and an equation on a background frame are intentional containment; unrelated content covering each other is the error.
 
-把对象关系与几何检查结合，不机械删除所有相交对象，也不用新增覆盖层掩盖旧布局问题。
+Combine object relationships with geometric checks; do not mechanically delete every intersecting object, and do not hide an old layout problem under a new overlay.
 
-## I. 验收与返工对照
+## I. Acceptance and rework mapping
 
-| 检查 | 怎么确认 |
+| Check | How to confirm |
 |---|---|
-| 内容含义 | 对回本次材料，核对术语、方向、条件、单位和证据范围 |
-| 跨页一致性 | 相同含义的颜色、术语、符号和图例一致，独立编码明确 |
-| 结构 | 查对象与子组，确认适用的原生 table、原生公式、真实 Group 和无失败重试的残留 |
-| 字体与溢出 | 核对普通文字的 Latin/Far East、单元格；必要时测量文本；回读字段并核对显示，不只看 success |
-| 几何与版面 | 对齐符合意图，说明中心正确，图片比例与留白合理 |
-| 内容与对象精简 | 每处文字与形状有独立用途，无无信息增量的复述或层叠；多余底框、同名 textbox 和重复边框已清理 |
-| 内容表达 | 简单平实但示意图有解释力；页面不是干巴文字框；行话与重复定义已压缩 |
-| 术语与符号 | 按受众需要就近短释义，没有关键未定义术语，也没有多处完整重复定义 |
-| 强调与数字 | 数字易读、可比较，没有多处重复数字卡片或纯装饰的巨型数字 |
-| 图片与重叠 | 先规划图片区，插入和修改后核对边界；坐标轴、图例、标题、图注和其他内容不被误遮挡 |
-| 分组与居中 | 有实际 group、成员完整、拖动关系合理；居中设计同时检查段落对齐与主体几何中心 |
-| 焦点 | 不无意义切页；能按对象寻址就不选中，必须抢焦点的操作集中执行；用户手动修改后重读状态 |
-| 视觉 | 在允许范围内预览新做、大改及原有问题页，修后再查。字段正确不等于视觉正确，预览仍不可省略 |
+| Content meaning | Check back against this task's material: terms, directions, conditions, units, and evidence scope |
+| Cross-slide consistency | The same meaning keeps the same color, term, symbol, and legend; independent encodings are explicit |
+| Structure | Inspect objects and subgroups; confirm applicable native tables, native equations, real Groups, and no leftovers from a failed retry |
+| Fonts and overflow | Verify Latin/Far East on body text and in table cells, measuring text when needed; read back the fields and check the display, not just `success` |
+| Geometry and layout | Alignment matches intent; captions are centered correctly; image ratios and margins are reasonable |
+| Content and object economy | Every piece of text and every shape has a distinct purpose; no repetition or layering that adds no information; extra base frames, same-named textboxes, and duplicate borders are cleaned up |
+| Expression | Plain and simple, yet diagrams explain; the slide is not bare text boxes; jargon and repeated definitions are compressed |
+| Terms and symbols | Short definitions nearby as the audience needs them; no critical undefined term and no fully repeated definition in several places |
+| Emphasis and numbers | Numbers are readable and comparable; no repeated number cards or purely decorative giant numbers |
+| Images and overlap | Plan the image area first and verify boundaries after inserting or modifying; axes, legends, titles, captions, and other content are not wrongly covered |
+| Grouping and centering | Real groups exist with complete members and sensible drag behavior; a centered design checks both paragraph alignment and the body's geometric center |
+| Focus | No pointless slide switching; address objects by name instead of selecting them, and batch operations that must steal focus; re-read state after the user edits manually |
+| Visual | Preview newly built, heavily revised, and previously problematic slides within what is allowed, then re-check after fixing. Correct fields do not mean correct visuals; do not skip the preview |
 
-### 返工意见与通用规则
+### Rework comments and general rules
 
-上面的清单逐条核对时，按这些修正意图判断改法；确认方法以上表为准。
+While working through the checklist above, use these correction intents to decide the fix; the table above remains the source of truth for confirmation.
 
-| 修正意图 | 通用规则 |
+| Correction intent | General rule |
 |---|---|
-| 简单平实，但示意图要有解释力 | 不堆装饰，也不把能画清的关系全部改成文字 |
-| 需要概念或符号回顾 | 按受众需要就近短释义，不每次机械重写 |
-| 用颜色区分不同内容 | 本次定义颜色—含义映射，跨全稿一致使用 |
-| 原图已有不同配色含义 | 先核对编码维度，不为表面一致破坏原图 |
-| 字体看起来没有真正改变 | 正文按本次字体要求设置并检查 Latin/Far East |
-| 表格不该用文本框拼 | 真正行列数据使用原生 table |
-| 页面只有干巴的文字框 | 根据内容画流程、结构或关系，而不是给句子套框 |
-| 数字没有必要特别大 | 避免纯装饰的巨型数字，强调服从本次表达目的 |
-| 认可的画法需要复用 | 复用样式，不复制旧内容逻辑 |
-| 小形状需要真正组合 | 按一起移动的需求执行 Group，不只摆在附近 |
-| 公式不能只是下划线输入 | 用原生数学对象完成所需排版 |
-| 形状本身可以直接写字 | 普通模块尽量用一个原生形状承载文字 |
-| 组合后说明仍没有居中 | 居中设计同时检查框内对齐与主体几何中心 |
-| 操作抢占用户窗口焦点 | 能按对象寻址就不选中，必须抢焦点的操作集中执行 |
-| 任务说做了，但实际遗漏 | 检查最终对象状态，不把计划和工具批次当完成 |
-| 文字和形状都不要冗余 | 分别检查信息重复与多余对象层 |
+| Simple and plain, but diagrams must explain | Do not pile on decoration, and do not turn every relationship you could draw into text |
+| A concept or symbol needs a recap | Give a short definition nearby as the audience needs it, not a mechanical rewrite every time |
+| Use color to distinguish content | Define this task's color-to-meaning mapping and apply it consistently across the deck |
+| The original figure already uses a different color meaning | Check the encoding dimension first; do not break the original figure for surface consistency |
+| The font looks like it did not really change | Set body text to this task's font and check Latin/Far East |
+| A table should not be faked with textboxes | Use a native table for real row-and-column data |
+| The slide is only dry text boxes | Draw a process, structure, or relationship from the content instead of wrapping sentences in boxes |
+| A number does not need to be especially large | Avoid purely decorative giant numbers; make emphasis serve this task's purpose |
+| An approved drawing approach needs reuse | Reuse the style, not the old content logic |
+| Small shapes need real grouping | Group according to what must move together, rather than merely placing them near each other |
+| An equation must not be underscore input | Use a native math object to do the typesetting needed |
+| A shape can hold text directly | Prefer one native shape to carry text in an ordinary module |
+| A caption is still not centered after grouping | A centered design checks both paragraph alignment and the body's geometric center |
+| An operation steals the user's window focus | Address objects by name rather than selecting them, and batch operations that must steal focus |
+| The task was reported done but something was missed | Check the final object state; do not count plans or tool batches as completion |
+| Neither text nor shapes should be redundant | Check information repetition and extra object layers separately |
 
-### 工具返回成功不等于做对
+### A tool returning success does not mean it worked
 
-| 返回或现象 | 处理原则 |
+| Return or symptom | Handling principle |
 |---|---|
-| 字体替换返回成功，局部显示仍是旧字体 | success 不足以证明所有文字实际生效，需逐类对象检查 |
-| 字体清单与系统安装情况被混淆 | 分清文稿字体引用与运行端字体可用性，不对替代情况做无证据承诺 |
-| 插入公式返回成功，但没有新增对象 | 比较前后对象身份与选择状态，不覆盖旧公式 |
-| 组合完成，说明或标签仍偏移 | 分组与对齐是独立验收项 |
-| 远端可以读取某个临时图片地址 | 核对接收端可访问性，不把地址当作跨任务常量 |
+| A font replacement returns success but some text still shows the old font | `success` is not proof that all text actually took effect; check object by object |
+| The font list is confused with what is installed on the system | Separate the deck's font references from the runtime's font availability, and make no unsupported promise about substitution |
+| Inserting an equation returns success but no object was added | Compare object identities and selection state before and after; do not overwrite the old equation |
+| Grouping completes but a caption is still offset | Grouping and alignment are separate acceptance items |
+| A remote endpoint can read a temporary image URL | Verify what the receiving end can access; do not treat the address as a cross-task constant |
 
-先检查高风险页，跨页抽查不能代替所有页面的视觉检查。交接时说清检查范围和未验证项，预览许可不等于导出许可。
-
-工具名、返回结构、窗口行为及公式输入等操作细节见 [MCP 操作配方](mcp-recipes.md)，执行时再核对当前 schema。
+For operation details such as tool names, return structures, window behavior, and equation input, see [MCP Recipes](mcp-recipes.md) and re-check the current schema at execution time.

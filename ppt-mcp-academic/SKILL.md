@@ -1,82 +1,82 @@
 ---
 name: ppt-mcp-academic
-description: 使用 PowerPoint MCP（ppt_* / mcp__ppt__ppt_*）新建、整理或修改演示文稿，适用于不同项目的科研汇报、技术讲解、教学与项目报告。遵循本次任务的内容、模板与颜色编码，重点检查原生可编辑对象、示意图、字体、公式、表格、分组、对齐、图文重叠，以及文字和形状冗余。
+description: Use the PowerPoint MCP (ppt_* / mcp__ppt__ppt_*) to create, organize, or revise presentations for research reports, technical walkthroughs, teaching, and project updates. Follow the content, template, and color coding of the current task, and check native editable objects, diagrams, fonts, equations, tables, grouping, alignment, image-text overlap, and redundant text and shapes.
 ---
 
-# 用 PowerPoint MCP 制作与修改 PPT
+# Building and Revising Slides with the PowerPoint MCP
 
-目标是**讲清楚、看得清、方便继续修改**。本 skill 提供跨项目的做法和用户默认偏好，不预设任何项目的内容、模型、配色或页面结构。
+The goal is to **be clear, be readable, and stay easy to revise**. This skill provides cross-project practice and user defaults; it does not presuppose any project's content, model, palette, or page structure.
 
-## 按当前任务读取
+## Read by current need
 
-| 当前需要 | 读取 |
+| When you need to | Read |
 |---|---|
-| 组织内容、画示意图、定义颜色编码、精简版面、验收与返工对照 | [设计与验收](references/design-and-review.md) |
-| 调用 MCP，处理字体、公式、表格、分组和远程图片 | [MCP 操作配方](references/mcp-recipes.md) 的相关小节 |
+| Organize content, draw diagrams, define color coding, trim slides, review and handle rework | [Design and Review](references/design-and-review.md) |
+| Call the MCP, handle fonts, equations, tables, grouping, and remote images | The relevant sections of [MCP Recipes](references/mcp-recipes.md) |
 
-不预加载全部 API 或历史会话。没有表格、公式或模型的任务，不为满足清单而额外添加这些内容。
+Do not preload every API or session history. If the task has no tables, equations, or models, do not add them just to satisfy a checklist.
 
-## 1. 区分通用规则、个人默认与本次设置
+## 1. Separate general rules, personal defaults, and this task's settings
 
-**优先级：本次用户明确要求 → 本稿已确认的模板与约定 → 用户默认偏好 → 一般建议。** 内容准确、操作授权和如实报告验证范围始终成立；既有稿出现矛盾时先核对，不为保留样式而保留错误。
+**Priority: this task's explicit user requirements → the template and conventions already confirmed for this deck → user default preferences → general advice.** Content accuracy, operation authorization, and honest reporting of verification scope always hold. When the existing deck conflicts with itself, check first; do not keep an error just to preserve a style.
 
-先读已有材料，形成一份简短的任务设置：**目标与受众、语言、目标文件与范围、证据来源、样式与字体、颜色—含义映射、操作权限**。内部记录即可，不要求用户重新填写已知信息。
+Read the existing material first and form a short task brief: **goal and audience, language, target file and scope, evidence sources, style and fonts, color-to-meaning mapping, operation permissions.** Keep it as an internal note; do not make the user re-enter what they already gave you.
 
-## 2. 先确认文件和操作范围
+## 2. Establish the file and the operation scope first
 
-- 发现当前 MCP 工具，读取实际 schema；以当前服务为准。
-- 读取当前演示文稿信息、页面目录、目标页文字与对象。按本次任务确认目标文件；不要把当前焦点窗口自动认作目标。
-- 用户要求修改现有稿时，保留仍有用的内容与版式，不擅自另做一份替代品。用户要求新建时，按已发现的实际能力新建，不被“只能编辑当前文件”限制。
-- 保存、另存、导出和关闭按本次明确要求执行；未获授权不覆盖保存或关闭文件。预览不授权交付导出。
-- 任务允许时按页预览；用户禁止预览或工具无法提供时，明确没有完成视觉验收。
-- 不为做 PPT 擅自重跑大型分析、改动项目代码或上传未公开材料。优先使用本次已提供且可核对的结果。
+- Discover the current MCP tools and read their actual schemas; treat the current service as authoritative.
+- Read the current presentation info, the slide list, and the target slides' text and objects. Confirm the target file for this task; do not assume the currently focused window is the target.
+- When asked to revise an existing deck, keep what is still useful, including its layout, and do not quietly make a replacement. When asked to create a new deck, do it with the capabilities you actually found and do not be limited by "you can only edit the current file."
+- Save, save-as, export, and close exactly as this task requires; without authorization, do not overwrite-save or close files. Preview does not authorize a delivery export.
+- Preview by slide when the task allows it; when the user forbids preview or the tools cannot provide it, state plainly that visual review was not completed.
+- Do not re-run large analyses, change project code, or upload unpublished material just to build slides. Prefer results already provided and checkable in this task.
 
-## 3. 设计与编辑规则
+## 3. Design and editing rules
 
-| 项目 | 要求 |
+| Item | Requirement |
 |---|---|
-| 表达与语言 | 跟随本次任务及现有文稿的语言，短句、少行话；必要术语保留。每页有清楚要点，不机械套同一版式。 |
-| 风格 | 默认平实清楚。数字突出应服务理解，不靠巨型数字、营销卡片或无意义装饰撑版面；明确模板要求优先。 |
-| 字体 | 本次指定字体或模板优先；未指定时，普通文字优先 `Source Han Sans SC`（思源黑体）。检查 Latin 与 Far East 字体、分组子项和表格；公式保留适用的数学字体。 |
-| 示意图 | 画清流程、结构、关系或输入输出；使用与当前内容匹配的视觉表达，不强塞实验、模型或训练网络。不是把一段话拆成许多方框。 |
-| 表格与公式 | 真正的行列数据用原生 table；需要结构化数学排版时用原生公式。不要用 textbox 拼假表格，或把裸露的下划线输入当成品公式。 |
-| 符号与术语 | 首次出现或确需回顾时就近短释义，语言跟随文稿。不是每次出现都重写定义。 |
-| 分组 | 拼成一个图标的小形状真正 Group；需要一起移动的模块、公式与说明合理组合。视觉靠近不算组合。 |
-| 对齐 | 分组前后都检查。需要居中的说明，同时检查框内段落居中和说明框对准主体中心。 |
-| 图片 | 保持纵横比，先规划图片区；不遮挡坐标轴、图例、图注、公式或其他内容。 |
+| Expression and language | Follow the language of this task and the existing deck; short sentences, little jargon, keep necessary terms. Each slide has a clear point; do not mechanically reuse one layout. |
+| Style | Plain and clear by default. Emphasis on numbers should serve understanding, not giant numbers, marketing cards, or meaningless decoration; explicit template requirements win. |
+| Fonts | A font specified for this task or an already-confirmed template wins; when unspecified, prefer `Source Han Sans SC` for body text. Check Latin and Far East fonts, group members, and table cells; keep a suitable math font for equations. |
+| Diagrams | Draw the process, structure, relationships, or inputs and outputs clearly; use visual expression that matches the content and do not force in experiments, models, or training networks. Do not split one paragraph into many boxes. |
+| Tables and equations | Use a native table for real row-and-column data, and a native equation when structured math typesetting is needed. Do not fake a table with textboxes, or treat raw underscore input as a finished equation. |
+| Symbols and terms | Give a short definition nearby on first use, or when a reminder is genuinely needed, in the language of the deck. Do not rewrite the definition on every occurrence. |
+| Grouping | Small shapes that form one icon must be truly Grouped; modules, equations, and captions that must move together should be grouped sensibly. Visual proximity is not grouping. |
+| Alignment | Check before and after grouping. For a caption that must be centered, check both paragraph centering inside the box and the box's centering against the body. |
+| Images | Preserve aspect ratio and plan the image area first; do not cover axes, legends, captions, equations, or other content. |
 
-### 颜色编码：含义由本次项目定义，全 PPT 保持一致
+### Color coding: this project defines the meaning, and the whole deck stays consistent
 
-当颜色有助于区分**实体、角色、类别、状态或数据系列**时使用。先建立本稿的“含义 → 颜色”映射；同一含义在不同页面的文字、形状、连线、图例及可编辑图表中保持一致，不能因为换页或复制模板就换色。
+Use color when it helps distinguish **entities, roles, categories, states, or data series**. Establish this deck's "meaning → color" mapping first; the same meaning keeps the same color in text, shapes, connectors, legends, and editable charts across slides, and must not change because you moved to another slide or copied a template.
 
-在同一编码体系内，避免同一颜色同时代表不同含义；保留名称、图例或线型等辅助标识，不只靠颜色区分。
+Within one coding scheme, avoid one color carrying conflicting meanings; keep names, legends, or line styles as supporting cues and do not rely on color alone.
 
-已有数据图的颜色可能编码另一维度。先核对语义，再决定沿用、从源图统一调整，或明确标注独立编码；**不为了表面统一而改错数据含义，也不把未解决的冲突报告为已统一。** 详见设计文档的颜色检查。
+An existing data figure may encode another dimension. Check the semantics first, then decide whether to carry it over, unify it from the source figure, or clearly mark it as an independent encoding; **do not corrupt the data's meaning for surface consistency, and do not report an unresolved conflict as unified.** See the color checks in the design reference.
 
-### 文字与形状不冗余——同时检查两层
+### No redundant text or shapes — check both layers
 
-**内容层：一处说清，不换几个位置再说一遍。** 标题、结论条、图内标签、页脚不要近义复述同一句话。图中已表达的流程，不再在旁边逐步抄写；保留必要的变量解释、单位、限制和证据来源。
+**Content layer: say it once, do not repeat it in several places.** Titles, takeaway bars, in-figure labels, and footers should not paraphrase the same sentence. When the diagram already shows a process, do not transcribe it step by step beside it; keep necessary variable explanations, units, limits, and evidence sources.
 
-**对象层：一个用途，用足够少的原生对象实现。** 普通模块文字直接写进形状。不要做“矩形底框 + 重叠文本框 + 另一层边框”，也不要用新对象盖住旧错误。独立原生公式、外置图注和确需独立定位的文字是合理例外，按需分组并对齐。
+**Object layer: one purpose, achieved with as few native objects as possible.** Put ordinary module text directly into a shape. Do not build "rectangle base + overlapping textbox + another border," and do not cover an old mistake with a new object. Standalone native equations, external captions, and text that genuinely needs independent positioning are reasonable exceptions; group and align them as needed.
 
-每加一个对象先问：**它提供了什么新信息、关系或必要编辑功能？删掉会损失什么？** 没有明确用途，就不加；已有冗余就删或合并。不要为了对象少而把整页压成图片。
+Before adding any object, ask: **what new information, relationship, or necessary editing capability does it provide, and what is lost if it is removed?** If there is no clear purpose, do not add it; if redundancy already exists, delete or merge it. Do not compress a whole slide into an image just to have fewer objects.
 
-## 4. 工作顺序
+## 4. Working order
 
-1. **读现状、核对证据和本次约定。** 建立目标页与材料的对应，核对术语、数据含义、字体与颜色映射。旧结论与新材料冲突时，先核实再改。
-2. **先定内容，再排对象。** 明确本页要点、证据、最合适的表达方式及必要限制。复杂关系先梳理逻辑，不先堆形状。
-3. **先验证一个代表性模块。** 检查字体、文字内嵌、颜色，以及适用的公式、表格和分组，再复用样式。复用画法，不复制其他项目的逻辑和数据。
-4. **按页或模块批量执行。** 有依赖的操作顺序 `await`；共享 PowerPoint 的写操作不并行。记录实际返回的对象名，按语义命名。
-5. **删冗余 → 排版 → 分组 → 复查。** 优先更新已有对象；批次报错后先重读状态，补齐缺失部分。
-6. **做结构检查与视觉检查。** 查对象类型、组成员、字体、溢出、对齐、图片边界和重复内容；跨页核对颜色与术语。修复后重查受影响页。验收看实际对象状态，工具 success 不算通过。
-7. **简短交接。** 说明修改范围、未验证项、待用户确认项，以及实际保存/导出状态。
+1. **Read the current state, check the evidence and this task's conventions.** Map target slides to the material and verify terms, data meaning, fonts, and the color mapping. When old conclusions conflict with new material, verify before changing.
+2. **Settle the content before arranging objects.** Define the slide's point, its evidence, the most suitable form of expression, and the necessary limits. Sort out complex relationships logically before stacking shapes.
+3. **Validate one representative module first.** Check fonts, embedded text, color, and any applicable equations, tables, and grouping, then reuse the style. Reuse the drawing approach, not another project's logic or data.
+4. **Execute in batches by slide or module.** Sequence dependent operations with `await`; do not run writes against the same PowerPoint in parallel. Record the object names actually returned and name them by meaning.
+5. **Trim redundancy → lay out → group → re-check.** Prefer updating existing objects; after a batch error, re-read the state and fill in what is missing.
+6. **Run a structural check and a visual check.** Check object types, group members, fonts, overflow, alignment, image boundaries, and duplicate content; verify color and terminology across slides. Re-check affected slides after fixing. Judge acceptance by the actual object state, not by a tool's success.
+7. **Hand off briefly.** State what changed, what was not verified, what needs the user's confirmation, and the actual save/export state.
 
-## 5. 共享窗口与交付检查
+## 5. Shared window and delivery checks
 
-普通读写优先按对象寻址，不为每一步切页或选择对象。公式、复制和预览可能影响焦点或剪贴板：集中处理需抢焦点的操作。
+Address objects by name for ordinary reads and writes, and do not switch slides or select objects for every step. Equations, copy, and preview may affect focus or the clipboard: batch the operations that need focus.
 
-用户报告误删、撤销或状态回退时，重新枚举该页及相关组，只修复确认损坏的对象，不覆盖用户其他修改。
+When the user reports an accidental delete, an undo, or a state rollback, re-enumerate that slide and the related groups, fix only the objects confirmed broken, and do not overwrite the user's other changes.
 
-交付前核对：**本次任务设置正确；语义配色跨页一致；文字和形状无无效重复；普通文字内嵌；需要的原生表格/公式正确；字体实际生效；分组成员完整；对齐正确；图片比例与边界合理。**
+Before delivery, verify: **this task's settings are correct; semantic colors match across slides; there is no ineffective duplication of text and shapes; body text is embedded; the native tables/equations needed are correct; fonts actually took effect; group members are complete; alignment is correct; image ratios and boundaries are reasonable.**
 
-不适用的项目跳过；做不到的项目标为未验证，不以堆装饰、缩成难读小字或让用户全面返工来掩盖问题。
+Skip items that do not apply; mark what you could not do as unverified, and do not hide problems by piling on decoration, shrinking text until it is unreadable, or making the user redo everything.

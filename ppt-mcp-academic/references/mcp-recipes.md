@@ -1,35 +1,35 @@
-# MCP 操作配方
+# MCP Recipes
 
-**适用范围：** 以下工具名、字段与返回结构来自已有会话的接口快照，不是当前服务的在线验证。调用前发现当前工具并读取所需 schema。
+**Scope:** the tool names, fields, and return structures below come from interface snapshots in earlier sessions and are not an online verification of the current service. Discover the current tools and read the schemas you need before calling them.
 
-## 1. 寻址、单位与工具发现
+## 1. Addressing, units, and tool discovery
 
-某些宿主通过 `search_tools` → `describe_tools` 发现工具，再直接调用 `mcp__ppt__ppt_*`，或在 `run_code` 中调用 `tools.mcp__ppt__ppt_*({params: {...}})`。宿主不同就使用实际提供的机制，不照抄不存在的函数。
+Some hosts discover tools through `search_tools` → `describe_tools` and then call `mcp__ppt__ppt_*` directly, or call `tools.mcp__ppt__ppt_*({params: {...}})` inside `run_code`. Use whatever mechanism the current host actually provides; do not copy functions that do not exist.
 
-| 用途 | 此接口快照中的工具 |
+| Purpose | Tools in this interface snapshot |
 |---|---|
-| 确认文稿与页面 | `ppt_get_presentation_info`、`ppt_list_slides`、`ppt_get_all_text` |
-| 定位对象 | `ppt_list_shapes`、`ppt_get_shape_info`、`ppt_get_group_items` |
-| 读文字和排版尺寸 | `ppt_get_text`，必要时 `measure: true` |
-| 创建与修改 | `ppt_add_shape`、`ppt_add_textbox`、`ppt_set_text`、`ppt_update_shape` |
-| 文字、段落、边距 | `ppt_format_text`、`ppt_format_text_range`、`ppt_set_paragraph_format`、`ppt_set_textframe` |
-| 原生表格 | `ppt_add_table`、`ppt_set_table_data`、`ppt_set_table_cell`、`ppt_set_table_layout` |
-| 原生公式操作 | `ppt_execute_mso`、`ppt_select_shapes`；可复用 `ppt_copy_shape_to_slide` |
-| 分组 | `ppt_group_shapes`、`ppt_get_group_items` |
-| 图片 | `ppt_add_picture_from_url`、`ppt_lock_aspect_ratio`；谨慎使用 `ppt_crop_picture` |
-| 检查 | `ppt_check_typography`、`ppt_get_slide_preview` |
+| Confirm the deck and slides | `ppt_get_presentation_info`, `ppt_list_slides`, `ppt_get_all_text` |
+| Locate objects | `ppt_list_shapes`, `ppt_get_shape_info`, `ppt_get_group_items` |
+| Read text and layout measurements | `ppt_get_text`, with `measure: true` when needed |
+| Create and modify | `ppt_add_shape`, `ppt_add_textbox`, `ppt_set_text`, `ppt_update_shape` |
+| Text, paragraphs, margins | `ppt_format_text`, `ppt_format_text_range`, `ppt_set_paragraph_format`, `ppt_set_textframe` |
+| Native tables | `ppt_add_table`, `ppt_set_table_data`, `ppt_set_table_cell`, `ppt_set_table_layout` |
+| Native equation operations | `ppt_execute_mso`, `ppt_select_shapes`; `ppt_copy_shape_to_slide` can be reused |
+| Grouping | `ppt_group_shapes`, `ppt_get_group_items` |
+| Images | `ppt_add_picture_from_url`, `ppt_lock_aspect_ratio`; use `ppt_crop_picture` with care |
+| Checks | `ppt_check_typography`, `ppt_get_slide_preview` |
 
-此快照的页面、表格行列和对象索引从 **1** 开始；位置与尺寸单位为 **pt**，72 pt = 1 inch。当前服务仍需核对，页面尺寸从目标文稿读取。
+In this snapshot, slide, table row/column, and object indices start at **1**; positions and sizes are in **pt**, with 72 pt = 1 inch. Verify against the current service, and read the slide dimensions from the target deck.
 
-优先按对象名寻址，新增、删除或分组后索引可能变化。组内对象使用实际返回的完整路径。不把示例对象名、自动生成的名称或先前页码当作跨任务常量。
+Address objects by name where possible; indices can shift after adding, deleting, or grouping. For objects inside a group, use the full path actually returned.
 
-此快照的 `like_slide_index` 继承设计和布局，**不复制内容**。新增或移动页后更新页码映射。`ppt_set_slide_notes` 会替换原备注，因此先读已有内容再合并，不把补充来源变成删除讲者备注。
+In this snapshot, `like_slide_index` inherits the design and layout and **does not copy content**. Update the page mapping after adding or moving slides. `ppt_set_slide_notes` replaces the existing notes, so read what is there and merge rather than turning an addition into a deletion of the speaker's notes.
 
-## 2. 批次、返回值与本次参数
+## 2. Batches, return values, and this task's parameters
 
-一批完成一个确定模块，相关写操作顺序 `await`；只读的独立查询才考虑并发。不要让多个代理同时写同一个 PowerPoint 窗口。
+One batch completes one well-defined module; sequence related writes with `await`, and consider concurrency only for independent read-only queries. Do not let several agents write to the same PowerPoint window at once.
 
-以下帮助函数适用于记录中的 JSON 返回结构，不适用于图片预览。后文示例共用它；宿主或返回格式不同，应根据当前 schema 调整。
+The helper below fits the JSON return structure in the records and does not apply to image previews. The examples later in this file share it; if the host or return format differs, adapt it to the current schema.
 
 ```javascript
 function unwrapPpt(response) {
@@ -59,17 +59,17 @@ async function ppt(tool, params) {
 }
 ```
 
-**执行前绑定本次参数。** 示例中的 `slideIndex`、`shapeName`、`memberNames`、`moduleName`、`sourceSlideIndex`、`sourceEquationName` 等来自当前文稿；`fontLatin`、`fontEastAsian`、字号、颜色、边界、标签和数据来自本次任务设置。它们不是自动存在的宿主变量，也不是工具字段名；不要原样执行尚未赋值的片段。
+**Bind this task's parameters before executing.** Identifiers such as `slideIndex`, `shapeName`, `memberNames`, `moduleName`, `sourceSlideIndex`, and `sourceEquationName` in the examples come from the current deck; `fontLatin`, `fontEastAsian`, sizes, colors, bounds, labels, and data come from this task's settings. They are not host variables that exist automatically, and they are not tool field names; do not run a fragment whose values you have not assigned.
 
-几何边界须符合实际页尺寸；数组、对象身份、字体和颜色应先核对。字体未指定时可采用主文件的个人默认，不在所有示例中写死某个模板。
+Geometric bounds must fit the actual slide dimensions; verify arrays, object identity, fonts, and colors first. When no font is specified, take the deck's personal default rather than hardcoding one template across every example.
 
-预览工具返回图片，应通过宿主支持的图像输出方式查看，不强行作为 JSON 解析。返回摘要以对象名、修改范围和异常为主，不输出几百条重复 success 或图像原始数据。
+Preview tools return images and should be viewed through whatever image output the host supports; do not force-parse them as JSON. Keep summaries to object names, the scope of changes, and anomalies rather than emitting hundreds of repeated `success` entries or raw image data.
 
-**重试规则：** 批次不是事务。报错前可能已有修改；先重读目标页与组，再继续缺失操作。相对位移 `dleft/dtop` 重复执行会继续移动，恢复时优先使用核对后的绝对位置。未定义变量、对象名失效或返回异常都不应触发整段创建脚本盲重跑。
+**Retry rules:** a batch is not a transaction. Changes may already exist before an error; re-read the target slide and group first, then continue the missing operations. Repeated relative offsets `dleft`/`dtop` keep moving the object, so restore from verified absolute positions. Undefined variables, invalid object names, or abnormal returns should not trigger a blind re-run of the whole creation script.
 
-## 3. 字体：设置和实际显示分开核对
+## 3. Fonts: set them and verify what actually displays
 
-`fontLatin` 与 `fontEastAsian` 根据本次指定字体或模板确定；没有另行要求时，普通文字可优先使用 `Source Han Sans SC`。数学对象单独处理，不强行用正文字体覆盖。
+`fontLatin` and `fontEastAsian` follow the font or template specified for this task; when nothing else is required, ordinary text may prefer `Source Han Sans SC`. Handle math objects separately and do not force the body font over them.
 
 ```javascript
 await ppt("ppt_format_text", {
@@ -86,17 +86,17 @@ const checked = await ppt("ppt_get_text", {
 console.log(checked);
 ```
 
-字段为 **`font_name_fareast`**；新建工具可能只提供 `font_name`，以当前 schema 的 Latin/Far East 说明为准。
+The field is **`font_name_fareast`**; a newer tool may only offer `font_name`, so follow the Latin/Far East description in the current schema.
 
-字体替换后回读字段确认实际生效：检查范围包括相关分组子项和表格单元格，跳过数学对象。
+After replacing fonts, read the fields back to confirm they actually took effect: check the relevant group members and table cells and skip math objects.
 
-使用 `ppt_set_default_fonts` 时，先明确是否要影响已有文字。此快照可设 `apply_to_existing: false`，先只设新文字默认值，再针对普通文字应用，避免影响公式。局部修复不应擅自改整份主题。
+When using `ppt_set_default_fonts`, decide first whether existing text should be affected. This snapshot supports `apply_to_existing: false`, which sets defaults for new text only; then apply the font to ordinary text, avoiding the equations. A local fix should not change the whole theme on its own.
 
-**`ppt_list_fonts` 在此快照中列的是文稿引用或嵌入字体，不是远端系统已安装字体清单。** 字段回读确认对象设置；预览或用户端显示帮助核对替代情况。字体缺失未确认时如实说明，不自行寻找并上传字体文件。
+**In this snapshot, `ppt_list_fonts` lists the deck's referenced or embedded fonts, not the fonts installed on the remote system.** Field read-back confirms the object's settings; a preview or the user's display helps verify substitution. When a font is missing and unconfirmed, say so honestly and do not go find and upload a font file on your own.
 
-## 4. 普通文字直接写在形状里
+## 4. Put ordinary text directly in the shape
 
-下面的 `moduleBounds`、`moduleLabel`、`bodyFontSize`、`textColor`、`moduleFill`、`cornerRadiusPt` 都须从本次布局或样式取得，不照抄示例坐标或颜色。
+The values `moduleBounds`, `moduleLabel`, `bodyFontSize`, `textColor`, `moduleFill`, and `cornerRadiusPt` below must all come from this task's layout or style; do not copy example coordinates or colors.
 
 ```javascript
 const box = await ppt("ppt_add_shape", {
@@ -131,36 +131,36 @@ await ppt("ppt_set_textframe", {
 });
 ```
 
-示例展示一种居中的模块，不要求所有内容都使用圆角、居中或相同内边距。不要再创建同名文本框叠上去；确需独立公式或外置图注时再单独建对象。
+The example shows one kind of centered module; it does not require rounded corners, centering, or the same margins everywhere. Do not create another textbox with the same name on top of it; when a standalone equation or external caption is genuinely needed, create it as its own object.
 
-`auto_size: "none"` 不保证文字放得下，仍需测量或预览。先调整表达和尺寸，不靠缩小到难读来掩盖溢出。
+`auto_size: "none"` does not guarantee the text fits; measurement or a preview is still required. Adjust the wording and the dimensions first rather than hiding overflow by shrinking text until it is unreadable.
 
-形状创建用 `align`（横向对齐）；段落设置用 `alignment`；文本框垂直对齐用 `vertical_anchor`。段落换行使用 `\n`，段内软换行使用 `\v`，仅在确有排版需要时使用。
+Shape creation uses `align` (horizontal alignment); paragraph settings use `alignment`; a text frame's vertical alignment uses `vertical_anchor`. Use `\n` for a paragraph break and `\v` for a soft line break inside a paragraph, and only when the layout genuinely needs it.
 
-## 5. 应用本稿颜色映射
+## 5. Apply this deck's color mapping
 
-按实体或含义查找本次已确认的颜色，不按页码、数组顺序或复制来源选色。颜色字段的格式和更新方式按当前工具 schema。
+Look up the color already confirmed for this entity or meaning; do not pick colors by page number, array order, or copy source. The format of color fields and how to update them follow the current tool schema.
 
-普通形状文字的局部配色优先使用 `ppt_format_text_range`。先读实际文本和该接口的范围规则，再计算范围；不要为一段彩色文字新建覆盖文本框。
+For coloring part of the text in an ordinary shape, prefer `ppt_format_text_range`. Read the actual text and that interface's range rules first, then compute the range; do not create an overlay textbox for one span of colored text.
 
-改名、调序或复制模块后，重新核对填充、文字、连线和图例是否仍对应正确含义。已有图片不能通过形状字体或填充设置可靠改色；需要修改时回到源图，否则按设计文档说明独立编码或未解决冲突。
+After renaming, reordering, or copying modules, re-verify that fills, text, connectors, and legends still match the right meaning. An existing image cannot be reliably recolored through shape font or fill settings; when it must change, go back to the source image, or otherwise mark an independent encoding or unresolved conflict as described in the design reference.
 
-## 6. 原生公式：验证一枚，再复用
+## 6. Native equations: validate one, then reuse
 
-### 基本流程
+### Basic flow
 
-1. 记录目标页对象 ID，确认窗口处于适合插入新公式的状态，而非仍在编辑上一枚公式。
-2. 执行 `ppt_execute_mso({command_name: "EquationInsertNew"})`。
-3. 再列对象，用前后 ID 差集确认新对象。新增数不符时先查选择状态和原对象。
-4. 用 `ppt_set_text` 写本次的线性表达式，选择该对象，再执行 `EquationProfessional`。
-5. 设置适用数学字体、字号、位置、边距与对齐。
-6. 在允许范围内预览上下标、帽号、分式或积分，以及公式边界；记录已验证对象供复用。
+1. Record the target slide's object IDs and confirm the window is in a state fit for inserting a new equation, rather than still editing the previous one.
+2. Run `ppt_execute_mso({command_name: "EquationInsertNew"})`.
+3. List objects again and confirm the new object from the difference in IDs before and after. If the count does not match, check the selection state and the original objects first.
+4. Use `ppt_set_text` to write this task's linear expression, select that object, then run `EquationProfessional`.
+5. Set a suitable math font, size, position, margins, and alignment.
+6. Preview subscripts, superscripts, hats, fractions, or integrals, plus the equation's bounds, within what is allowed; record the validated object for reuse.
 
-历史执行中出现过插入返回 success、实际新增对象数为 0 的情况。成功状态不证明新建了独立公式，不能因此覆盖上一枚公式。
+Earlier runs included cases where insertion returned `success` but the actual number of new objects was 0. A success status is not proof that a standalone equation was created, and you must not overwrite the previous equation because of it.
 
-### 复用已验证的原生公式
+### Reusing a validated native equation
 
-`equationInput` 来自本次所需公式；`mathFont` 与 `equationFontSize` 来自当前数学对象或模板。记录曾使用 `Cambria Math`，但不据此限制其他合适数学字体。
+`equationInput` comes from the equation this task needs; `mathFont` and `equationFontSize` come from the current math object or template. `Cambria Math` has been used, but that does not restrict other suitable math fonts.
 
 ```javascript
 const copied = await ppt("ppt_copy_shape_to_slide", {
@@ -187,17 +187,17 @@ await ppt("ppt_format_text", {
 });
 ```
 
-随后还要设置尺寸、边距和对齐，并视觉核对。不能假定复制后新公式长度与原公式相同。
+Afterwards, still set the size, margins, and alignment, and verify visually. Do not assume a copied equation is the same length as the original.
 
-可用中性测试输入检查所需数学结构，例如 `x_i`、`x_(ij)` 或 `I=∫_a^b f(x) dx`。这些只是排版测试示例，**不是本次内容，也不保证在任意输入模式下都能正确排版**；不把测试公式残留在成品中。
+You can check the math structure you need with neutral test input such as `x_i`, `x_(ij)`, or `I=∫_a^b f(x) dx`. These are typesetting test examples only, **not this task's content, and they are not guaranteed to typeset correctly in every input mode**; do not leave a test equation in the finished deck.
 
-成品应显示数学排版，而不是裸露的线性输入。
+The finished slide should show typeset math, not raw linear input.
 
-普通形状能写字不等于能替代公式。需要独立公式时，清除底框里的重复线性文字，将公式、必要底框和解释按需组合。
+An ordinary shape being able to hold text does not mean it can replace an equation. When a standalone equation is needed, clear the duplicated linear text in the base frame and group the equation, any necessary base frame, and the explanation as needed.
 
-## 7. 原生表格
+## 7. Native tables
 
-先确定真实行列数，再创建、批量写入数据、设置单元格字体与对齐。此快照的 `ppt_set_table_data` 会静默跳过越界数据；行列数与数据长度可能不一致时先核对，写完回读内容。
+Determine the real row and column counts first, then create the table, write the data in a batch, and set the cell fonts and alignment. In this snapshot, `ppt_set_table_data` silently skips out-of-range data; when the row/column counts and the data length may disagree, verify first and read the content back after writing.
 
 ```javascript
 const table = await ppt("ppt_add_table", {
@@ -231,15 +231,15 @@ for (let r = 1; r <= tableData.length; r++) {
 }
 ```
 
-执行前检查 `tableData` 非空、每行等长，并符合接口要求的二维文本数组类型。`tableBounds` 和 `tableFontSize` 由本页确定；表头加粗和对齐是示例，不是强制模板。
+Before running, check that `tableData` is non-empty, that every row has the same length, and that it matches the interface's expected two-dimensional array of text. `tableBounds` and `tableFontSize` come from this slide; the bold header row and the alignment are examples, not a required template.
 
-数字采用适合本次比较的一致精度；同列单位可放表头，混合单位须明确标注。长字段调列宽，不用额外 textbox 假装合并单元格。
+Use one consistent precision suited to this task's comparisons; put a shared unit in the header and label mixed units clearly. Widen columns for long fields instead of faking merged cells with an extra textbox.
 
-替换旧假表格时，先记录确切组成对象，确认新表完整后再删除旧对象。回读内容与尺寸并预览，检查最小行高或自动换行是否挤到其他区域。
+When replacing an old fake table, record its exact component objects first, confirm the new table is complete, and then delete the old objects. Read the content and dimensions back and preview, checking whether a minimum row height or text wrapping crowds other areas.
 
-## 8. 真正 Group，再核对对齐
+## 8. Real Groups, then verify alignment
 
-此快照的分组工具不接收 `group_name`，而是返回 `group_name`，随后可用 `ppt_update_shape` 重命名。
+In this snapshot, the grouping tool does not accept `group_name`; it returns `group_name`, which you can then rename with `ppt_update_shape`.
 
 ```javascript
 const grouped = await ppt("ppt_group_shapes", {
@@ -258,31 +258,31 @@ const inspected = await ppt("ppt_get_group_items", {
 console.log(inspected);
 ```
 
-`memberNames` 至少两个成员，来自本次真实读取或返回。确认成员完整且无重名、无包含自身的错误嵌套，再按用户会怎样移动来分组。
+`memberNames` needs at least two members, taken from real reads or returns in this task. Confirm the members are complete and free of duplicate names or wrong nesting that includes the group itself, then group according to how the user will move things.
 
-先对齐说明与主体，再分组，之后重查子项。工具批量调用不等于 PowerPoint Group。说明需居中时，同时查段落设置和文本框相对主体的中心；不是调用 Group 后就自然居中。
+Align the caption with the body before grouping, then re-check the members afterwards. A batch tool call is not a PowerPoint Group. When a caption must be centered, check both the paragraph settings and the textbox's center relative to the body; centering does not happen just because you called Group.
 
-组内修复使用返回的完整路径，不能只枚举顶层就断言某符号丢失。
+Repair inside a group with the full path that was returned; do not assert that a symbol is missing from a top-level enumeration alone.
 
-## 9. 图片路径由哪端解释
+## 9. Which end resolves the image path
 
-Agent 与 PowerPoint 可能在同一台机器，也可能不在。先确认插图参数由哪端解析；Agent 的本地路径不自动等于 PowerPoint 端可读路径。
+The Agent and PowerPoint may or may not be on the same machine. Confirm which end resolves the image parameter first; the Agent's local path is not automatically a path the PowerPoint side can read.
 
-优先使用当前工具真实支持且已获授权的传输方式。历史记录中可通过 PowerPoint 端可访问的临时 HTTP 地址，调用 `ppt_add_picture_from_url` 插入；这只是可选方法，不要求所有环境都启动临时服务。
+Prefer a transfer method the current tools genuinely support and that is already authorized. Historical records show images inserted through a temporary HTTP address reachable from the PowerPoint side via `ppt_add_picture_from_url`; that is only one option and does not require every environment to start a temporary server.
 
-- 优先采用已授权且可访问的共享位置、上传能力或 URL。无法访问时说明具体缺口，不声称未传输的本地文件已被远端读取。
-- 确需临时 HTTP 时，只暴露必要文件，限制无关目录访问，遵循用户允许的网络范围；不擅自把未公开材料上传公共图床。
-- 按实际图片区设置坐标和尺寸；此快照可用 `fit: true` 保持比例并居中，后续缩放仍要核对纵横比锁。
-- 此快照的 URL 工具描述为下载后插入并清理临时文件；先核对当前行为和结果，再判断图片是否已嵌入、是否还依赖 URL。结束后关闭自己启动且不再需要的临时服务。
+- Prefer an already authorized and reachable shared location, upload capability, or URL. When it is unreachable, state the specific gap; do not claim that a local file you never transferred was read remotely.
+- When a temporary HTTP server is genuinely needed, expose only the necessary files, restrict access to unrelated directories, and stay within the network range the user allows; do not upload unpublished material to a public image host on your own.
+- Set coordinates and dimensions to the actual image area; this snapshot supports `fit: true` to preserve the ratio and center, and later resizing must still verify the aspect-ratio lock.
+- This snapshot's URL tool is described as downloading, inserting, and cleaning up the temporary file; verify the current behavior and result first, then judge whether the image is embedded or still depends on the URL. Shut down any temporary service you started and no longer need.
 
-图例、坐标轴和颜色含义不能被外围标签遮住。配色有冲突时按设计文档核对语义，不直接覆盖原图颜色。
+Legends, axes, and color meanings must not be hidden by peripheral labels. When colors conflict, verify the semantics as described in the design reference rather than overwriting the original image's colors.
 
-## 10. 检查、焦点与交接
+## 10. Checks, focus, and handoff
 
-先用 `ppt_check_typography({slide_index, fix: false})` 检查，再对具体文本调用 `ppt_get_text(measure: true)`。自动修复可能改变宽度或换行，不默认全篇 `fix: true`。
+Start with `ppt_check_typography({slide_index, fix: false})`, then call `ppt_get_text(measure: true)` for specific text. Automatic fixes can change width or line breaks, so do not default to `fix: true` across the deck.
 
-这些工具不代替看页面：存在 Group 不保证成员完整，公式文字正确不保证数学排版正确。
+These tools do not replace looking at the slide: an existing Group does not guarantee complete members, and correct equation text does not guarantee correct math typesetting.
 
-此快照中，`ppt_get_slide_preview` 会切到目标页，`ppt_select_shapes` 会将窗口带到前台，`ppt_copy_shape_to_slide` 使用剪贴板。集中处理需要焦点的操作；其他操作是否影响窗口仍取决于当前实现，不承诺绝不干扰。
+In this snapshot, `ppt_get_slide_preview` switches to the target slide, `ppt_select_shapes` brings the window to the foreground, and `ppt_copy_shape_to_slide` uses the clipboard. Batch the operations that need focus; whether other operations affect the window still depends on the current implementation, so do not promise that they never interfere.
 
-修后复查。用户刚刚手动修改时，重新读取实时对象，不用旧缓存覆盖。预览、保存、导出与关闭按本次任务分别确认。
+Re-check after fixing. When the user has just edited manually, re-read the live objects rather than overwriting with a stale cache. Confirm preview, save, export, and close separately for this task.
