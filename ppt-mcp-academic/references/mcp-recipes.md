@@ -145,7 +145,7 @@ For coloring part of the text in an ordinary shape, prefer `ppt_format_text_rang
 
 After renaming, reordering, or copying modules, re-verify that fills, text, connectors, and legends still match the right meaning. An existing image cannot be reliably recolored through shape font or fill settings; when it must change, go back to the source image, or otherwise mark an independent encoding or unresolved conflict as described in the design reference.
 
-## 6. Native equations: validate one, then reuse
+## 6. Native equations: calibrate the syntax, validate one, then reuse
 
 ### Basic flow
 
@@ -189,7 +189,11 @@ await ppt("ppt_format_text", {
 
 Afterwards, still set the size, margins, and alignment, and verify visually. Do not assume a copied equation is the same length as the original.
 
-You can check the math structure you need with neutral test input such as `x_i`, `x_(ij)`, or `I=∫_a^b f(x) dx`. These are typesetting test examples only, **not this task's content, and they are not guaranteed to typeset correctly in every input mode**; do not leave a test equation in the finished deck.
+### Calibrate the linear input syntax before writing the real equation
+
+Which linear syntax the equation object accepts cannot be judged from the equation-input setting in the UI; determine it empirically with a representative test equation. In an earlier run, the LaTeX-style `\Theta_{ab}=\int_{r_0}^{r_1} U_{ab}(r) dr` still showed leftover curly braces after `EquationProfessional`, while the UnicodeMath-style `Θ_(ab)=∫_(r_0)^(r_1) U_(ab)(r) dr` typeset its subscripts and integral correctly. That only shows the second form worked in the equation object at the time; it does not prove that any setting was switched.
+
+Use test input — `x_i`, `x_(ij)`, `I=∫_a^b f(x) dx`, or one equation from this task — the same way. The test input is not this task's content; do not leave it in the finished deck.
 
 The finished slide should show typeset math, not raw linear input.
 
