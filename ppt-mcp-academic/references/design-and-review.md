@@ -135,7 +135,15 @@ When it does not fit, delete redundancy, shorten the wording, adjust the area, o
 
 Text already inside an image does not change with the deck's font settings. To unify it, modify the source image; until then you cannot claim the image's fonts are unified. Do not break math objects by replacing the deck's fonts wholesale.
 
-## H. Images and overlap
+## H. Slide numbers
+
+Use PowerPoint's native slide number rather than a hand-typed number on each slide. A typed number is a static text object, so inserting, deleting, or reordering slides leaves every following page wrong and requires an edit per slide — the approach that causes rework. The native number is a field in the slide master or layout and renumbers itself. For the tool call, see [MCP Recipes](mcp-recipes.md).
+
+Hand-typing is a defect worth correcting on sight when a deck already has it, but correct it in this order: enable the native number and confirm it actually appears on a slide, then delete the manual number objects. Removing the typed numbers first can leave the deck with no page number at all, and enabling the native number without removing them leaves two numbers stacked on each other.
+
+Confirm what actually appears: a slide whose layout has no slide-number placeholder can show nothing even after the setting is switched on. Verify from a preview or a shape listing, not from the tool returning success. Leave the header, footer text, and date settings off unless this task asks for them.
+
+## I. Images and overlap
 
 Determine the available image area first, then scale by the original aspect ratio. After inserting, moving, or resizing, re-verify the boundaries and the ratio.
 
@@ -143,7 +151,7 @@ Focus on legends and axes, title line breaks, captions below, the dimensions of 
 
 Combine object relationships with geometric checks; do not mechanically delete every intersecting object, and do not hide an old layout problem under a new overlay.
 
-## I. Acceptance and rework mapping
+## J. Acceptance and rework mapping
 
 | Check | How to confirm |
 |---|---|
@@ -178,6 +186,7 @@ While working through the checklist above, use these correction intents to decid
 | An approved drawing approach needs reuse | Reuse the style, not the old content logic |
 | Small shapes need real grouping | Group according to what must move together, rather than merely placing them near each other |
 | An equation must not be underscore input | Use a native math object to do the typesetting needed |
+| The slide numbers were typed in by hand | Use PowerPoint's native slide number field, not one text object per slide |
 | A shape can hold text directly | Prefer one native shape to carry text in an ordinary module |
 | A caption is still not centered after grouping | A centered design checks both paragraph alignment and the body's geometric center |
 | An operation steals the user's window focus | Address objects by name rather than selecting them, and batch operations that must steal focus |

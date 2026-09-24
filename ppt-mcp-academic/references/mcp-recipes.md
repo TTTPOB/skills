@@ -18,6 +18,7 @@ Some hosts discover tools through `search_tools` → `describe_tools` and then c
 | Grouping | `ppt_group_shapes`, `ppt_get_group_items` |
 | Images | `ppt_add_picture_from_url`, `ppt_lock_aspect_ratio`; use `ppt_crop_picture` with care |
 | Checks | `ppt_check_typography`, `ppt_get_slide_preview` |
+| Slide numbers | `ppt_set_headers_footers`, `ppt_delete_shape` |
 
 In this snapshot, slide, table row/column, and object indices start at **1**; positions and sizes are in **pt**, with 72 pt = 1 inch. Verify against the current service, and read the slide dimensions from the target deck.
 
@@ -268,7 +269,23 @@ Align the caption with the body before grouping, then re-check the members after
 
 Repair inside a group with the full path that was returned; do not assert that a symbol is missing from a top-level enumeration alone.
 
-## 9. Which end resolves the image path
+## 9. Page numbers: use the native field
+
+Use the native slide number field, not a hand-typed number on each slide. A typed number is a static text box, so inserting, deleting, or reordering slides leaves every following page wrong and forces an edit per slide.
+
+```javascript
+await ppt("ppt_set_headers_footers", {slide_number_visible: true});
+```
+
+`slide_number_visible` is one of `footer_text`, `footer_visible`, `date_visible`, and `date_format` in this snapshot's params. Check the current schema for the full set, and leave the header, footer text, and date settings off unless this task asks for them.
+
+**Confirm the numbers actually appear before removing any manual ones.** Switching the setting on returns success even when nothing shows, because a layout without a slide-number placeholder displays nothing. Verify with a preview or by listing shapes, and only then delete the old text boxes — removing them first can leave the deck with no page number at all, while adding the native number without removing them leaves two numbers stacked on each other.
+
+Identify manual page numbers by what they are: a text object near the bottom edge whose text is only digits. Enumerate first, then delete by the names that enumeration returned.
+
+Earlier runs typed the slide number into a text box on every slide; after slides were inserted, each following page had to be renumbered by hand, which is the rework this section avoids. The fix was to switch on the native number, confirm it was visible, and then delete the old text boxes.
+
+## 10. Which end resolves the image path
 
 The Agent and PowerPoint may or may not be on the same machine. Confirm which end resolves the image parameter first; the Agent's local path is not automatically a path the PowerPoint side can read.
 
@@ -281,7 +298,7 @@ Prefer a transfer method the current tools genuinely support and that is already
 
 Legends, axes, and color meanings must not be hidden by peripheral labels. When colors conflict, verify the semantics as described in the design reference rather than overwriting the original image's colors.
 
-## 10. Checks, focus, and handoff
+## 11. Checks, focus, and handoff
 
 Start with `ppt_check_typography({slide_index, fix: false})`, then call `ppt_get_text(measure: true)` for specific text. Automatic fixes can change width or line breaks, so do not default to `fix: true` across the deck.
 
