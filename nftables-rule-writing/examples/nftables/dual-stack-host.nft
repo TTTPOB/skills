@@ -35,7 +35,7 @@ table inet filter {
 
         tcp dport { 80, 443 } accept
 
-        log prefix "dual-host-drop: " limit rate 5/minute level info
+        limit rate 5/minute log prefix "dual-host-drop: " level info
     }
 
     chain forward {

@@ -24,7 +24,7 @@ table inet filter {
         tcp dport 22 ip saddr @ssh_allowed_v4 ct state new limit rate 5/minute accept comment "SSH allowlist"
         tcp dport { 80, 443 } accept comment "HTTP/HTTPS"
 
-        log prefix "nft-drop: " limit rate 5/minute level info
+        limit rate 5/minute log prefix "nft-drop: " level info
     }
 
     chain forward {
