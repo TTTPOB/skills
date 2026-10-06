@@ -1,7 +1,6 @@
 ---
 name: proportionate-engineering
 description: Evaluate guards, validation, exception handling, abstractions, and tests through mental ablation; keep engineering proportional to realistic risks.
-disable-model-invocation: true
 user-invocable: true
 ---
 
@@ -26,3 +25,26 @@ Exception handling must serve a clear purpose, such as recovery, resource cleanu
 Validate specific behavior changes and realistic risks, preferably with minimal, direct examples or targeted tests. Avoid redundant verification, coverage for its own sake, expanding test matrices, and unrelated testing frameworks.
 
 Retain measures justified by real failures. Fix the concrete problem without wrapping it in an additional general-purpose defense system.
+
+## Examples
+
+### Simplify the implementation while preserving useful behavior
+
+An old module contains obsolete animations and a system-back action that users still need.
+
+- Avoid deleting the whole module because it is old, or keeping the whole module because one behavior remains useful.
+- Remove the obsolete animations and replace the remaining machinery with a direct implementation of system back.
+
+### Delete compatibility with no current requirement
+
+A compatibility branch serves only a version the project no longer supports.
+
+- Avoid retaining it and adding tests because it might be useful someday.
+- Delete the branch and its dedicated tests. Investigate further only if there is a concrete doubt about a current consumer.
+
+### Validate behavior without adding low-value tests
+
+An effect is moved into its own module. Existing tests already exercise the relevant behavior.
+
+- Avoid adding a test that only checks the registration label without executing the effect.
+- Reuse the existing behavior tests. Add a focused check only if the move introduces a realistic regression they do not cover.
