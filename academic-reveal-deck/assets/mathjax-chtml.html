@@ -1,0 +1,13 @@
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] },
+  chtml: { matchFontHeight: false },
+  options: { enableMenu: false },
+  startup: {
+    pageReady: () => MathJax.startup.defaultPageReady().then(() => {
+      if (window.Reveal) Reveal.layout();
+    })
+  }
+};
+</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.js"></script>

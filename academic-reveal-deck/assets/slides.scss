@@ -1,0 +1,47 @@
+/*-- scss:defaults --*/
+$body-bg: #ffffff;
+$body-color: #20344A;
+$link-color: #4C72B0;
+$font-family-sans-serif: 'Noto Sans CJK SC', 'Source Han Sans SC', 'Microsoft YaHei', sans-serif;
+$presentation-heading-font: $font-family-sans-serif;
+$presentation-font-size-root: 28px;
+$presentation-heading-color: #20344A;
+$presentation-heading-font-weight: 650;
+$presentation-heading-line-height: 1.25;
+$presentation-heading-text-transform: none;
+
+/*-- scss:rules --*/
+.reveal .slides { text-align: left; }
+// Bottom padding reserves room for the pinned footnote.
+.reveal .slides > section { height: 100%; padding: 18px 24px 88px; box-sizing: border-box; }
+.reveal h2 { font-size: 1.24em; line-height: 1.35; margin-bottom: 24px; }
+.reveal h3 { font-size: 1em; margin-bottom: 16px; }
+.reveal p { line-height: 1.55; margin: 15px 0; }
+.reveal li { line-height: 1.6; margin: 14px 0; }
+.reveal strong { font-weight: 650; }
+.reveal .subtitle, .reveal .meta { color: #526171; }
+
+// Footnote pinned to the slide bottom: `::: {.source}` ... `:::`
+.reveal .source { position: absolute; left: 24px; right: 84px; bottom: 32px; margin: 0; font-size: .48em; color: #526171; line-height: 1.5; }
+.reveal .source p { margin: 0; }
+.reveal .source a { color: #526171; }
+
+// Figure size classes
+.reveal img { max-height: 505px; margin: 5px auto; object-fit: contain; }
+.reveal .wide-figure img { width: 100%; max-height: 490px; }
+.reveal .diagram img { width: 100%; max-height: 475px; }
+.reveal .compact-figure img { max-height: 420px; }
+.reveal .columns { gap: 28px; }
+.reveal .columns > .column { min-width: 0; }
+
+// Tables use their own size class instead of global scaling
+.reveal table { width: 100%; font-size: .68em; border-collapse: collapse; line-height: 1.5; }
+.reveal table th { background: #f3f6fa; font-weight: 600; }
+.reveal table td, .reveal table th { padding: 12px 13px; border-bottom: 1px solid #d8e0e8; vertical-align: top; }
+
+.reveal .formula { background: #f3f6fa; padding: 22px 28px; margin: 24px 0; font-size: 1.1em; text-align: center; }
+.reveal .formula mjx-container { margin: 0 !important; }
+.reveal .slide-number { font-size: 14px; color: #526171; background: transparent; }
+.reveal .progress { color: #8172B3; height: 3px; }
+.reveal .slides section .fragment { transition: none; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

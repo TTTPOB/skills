@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="vendor/reveal-pointer/pointer.css">
+<style>.cursor-dot { z-index: 10000 !important; }</style>
+<script src="vendor/reveal-pointer/pointer.js"></script>
+<script>
+// reveal.js-pointer: press Q to toggle the laser pointer.
+document.addEventListener("DOMContentLoaded", () => {
+  const activate = () => {
+    Reveal.configure({ pointer: { key: "q", color: "#C44E52", pointerSize: 18, opacity: 0.9 } });
+    Reveal.registerPlugin("pointer", RevealPointer());
+  };
+  if (Reveal.isReady()) activate();
+  else Reveal.on("ready", activate);
+});
+</script>
